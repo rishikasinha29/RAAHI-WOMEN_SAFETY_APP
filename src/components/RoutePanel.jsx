@@ -1,13 +1,12 @@
 import {
-  ShieldCheck,
-  Clock,
-  Route,
   X,
+  Clock3,
+  Route as RouteIcon,
+  ShieldCheck,
 } from "lucide-react"
 
-import { routes } from "../data/routes"
-
 function RoutePanel({
+  routes = [],
   selectedRoute,
   onRouteSelect,
   isOpen,
@@ -18,31 +17,81 @@ function RoutePanel({
   }
 
   return (
-    <div className="absolute left-5 top-24 z-[1000] w-[320px] max-w-[85vw] rounded-2xl bg-white p-4 shadow-2xl">
-      
+    <aside
+      className="
+        absolute
+        left-4
+        top-24
+        bottom-6
+        z-[1000]
+        w-[340px]
+        overflow-hidden
+        rounded-2xl
+        bg-white
+        shadow-2xl
+      "
+    >
       {/* Header */}
-      <div className="mb-4 flex items-center justify-between">
+      <div
+        className="
+          flex
+          items-center
+          justify-between
+          border-b
+          border-gray-200
+          px-5
+          py-4
+        "
+      >
         <div>
           <h2 className="text-lg font-bold text-gray-900">
             Available Routes
           </h2>
 
           <p className="text-xs text-gray-500">
-            Choose a route based on safety
+            Choose your preferred route
           </p>
         </div>
 
         <button
           onClick={onClose}
-          className="rounded-full p-2 hover:bg-gray-100"
+          className="
+            rounded-full
+            p-2
+            text-gray-500
+            transition
+            hover:bg-gray-100
+            hover:text-gray-900
+          "
+          aria-label="Close route panel"
         >
-          <X size={18} />
+          <X size={20} />
         </button>
       </div>
 
       {/* Routes */}
-      <div className="space-y-3">
-        {routes.map((route) => {
+      <div className="h-full overflow-y-auto p-4">
+
+        {routes.length === 0 && (
+          <div className="flex h-40 items-center justify-center text-center">
+            <div>
+              <RouteIcon
+                size={30}
+                className="mx-auto mb-3 text-gray-400"
+              />
+
+              <p className="text-sm font-medium text-gray-700">
+                No route calculated
+              </p>
+
+              <p className="mt-1 text-xs text-gray-500">
+                Enter a source and destination above.
+              </p>
+            </div>
+          </div>
+        )}
+
+        {routes.map((route, index) => {
           const isSelected =
             selectedRoute === route.id
 
@@ -53,93 +102,118 @@ function RoutePanel({
                 onRouteSelect(route.id)
               }
               className={`
+                mb-3
                 w-full
                 rounded-xl
                 border
-                p-3
+                p-4
                 text-left
                 transition
+
                 ${
                   isSelected
-                    ? "border-blue-500 bg-blue-50"
-                    : "border-gray-200 bg-white hover:bg-gray-50"
+                    ? "border-black bg-gray-50 shadow-md"
+                    : "border-gray-200 bg-white hover:border-gray-400"
                 }
               `}
             >
+
+              {/* Route title */}
               <div className="flex items-start justify-between">
-                
-                <div className="flex items-start gap-3">
-                  <div
-                    className="mt-1 h-3 w-3 rounded-full"
-                    style={{
-                      backgroundColor:
-                        route.color,
-                    }}
+
+                <div className="flex items-center gap-3">
+
+                  <span
+                    className={`
+                      h-3
+                      w-3
+                      rounded-full
+
+                      ${
+                        index === 0
+                          ? "bg-green-500"
+                          : "bg-gray-400"
+                      }
+                    `}
                   />
 
                   <div>
                     <h3 className="font-semibold text-gray-900">
-                      {route.name}
+                      {index === 0
+                        ? "Recommended Route"
+                        : `Alternative Route ${index}`}
                     </h3>
 
                     <p className="mt-1 text-xs text-gray-500">
-                      {route.description}
+                      Road route from source to destination
                     </p>
                   </div>
+
                 </div>
 
-                {route.safety === "High" && (
+                {index === 0 && (
                   <ShieldCheck
                     size={20}
                     className="text-green-600"
                   />
                 )}
+
               </div>
 
-              <div className="mt-3 flex items-center gap-4 text-xs text-gray-600">
-                <div className="flex items-center gap-1">
-                  <Clock size={14} />
+              {/* Route information */}
+              <div
+                className="
+                  mt-4
+                  flex
+                  items-center
+                  gap-4
+                  text-sm
+                  text-gray-600
+                "
+              >
 
-                  <span>
-                    {route.travelTime}
-                  </span>
-                </div>
+                <span className="flex items-center gap-1">
+                  <Clock3 size={15} />
 
-                <div className="flex items-center gap-1">
-                  <Route size={14} />
-
-                  <span>
-                    {route.distance}
-                  </span>
-                </div>
-              </div>
-
-              <div className="mt-2">
-                <span
-                  className={`
-                    inline-block
-                    rounded-full
-                    px-2
-                    py-1
-                    text-xs
-                    font-medium
-                    ${
-                      route.safety === "High"
-                        ? "bg-green-100 text-green-700"
-                        : route.safety === "Moderate"
-                        ? "bg-yellow-100 text-yellow-700"
-                        : "bg-red-100 text-red-700"
-                    }
-                  `}
-                >
-                  {route.safety} Safety
+                  {route.duration} min
                 </span>
+
+                <span className="flex items-center gap-1">
+                  <RouteIcon size={15} />
+
+                  {route.distance} km
+                </span>
+
               </div>
+
+              {/* Safety badge */}
+              {index === 0 && (
+                <div className="mt-3">
+
+                  <span
+                    className="
+                      inline-flex
+                      rounded-full
+                      bg-green-100
+                      px-3
+                      py-1
+                      text-xs
+                      font-medium
+                      text-green-700
+                    "
+                  >
+                    Recommended
+                  </span>
+
+                </div>
+              )}
+
             </button>
           )
         })}
+
       </div>
-    </div>
+    </aside>
   )
 }
 

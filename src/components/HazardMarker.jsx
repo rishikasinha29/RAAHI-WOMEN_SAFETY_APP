@@ -1,5 +1,6 @@
 import { Marker, Popup } from "react-leaflet"
 import L from "leaflet"
+
 import {
   AlertTriangle,
   Clock,
@@ -7,7 +8,8 @@ import {
 
 function HazardMarker({ hazard }) {
   const hazardIcon = L.divIcon({
-    className: "",
+    className: "hazard-marker",
+
     html: `
       <div
         style="
@@ -20,15 +22,15 @@ function HazardMarker({ hazard }) {
           align-items: center;
           justify-content: center;
           box-shadow: 0 2px 8px rgba(0,0,0,0.35);
-        "
-      >
-        <span style="
+          font-weight: bold;
           color: white;
           font-size: 18px;
-          font-weight: bold;
-        ">!</span>
+        "
+      >
+        !
       </div>
     `,
+
     iconSize: [36, 36],
     iconAnchor: [18, 18],
     popupAnchor: [0, -18],
@@ -40,16 +42,20 @@ function HazardMarker({ hazard }) {
       icon={hazardIcon}
     >
       <Popup>
+
         <div className="min-w-[220px]">
+
           <div className="mb-2 flex items-center gap-2">
+
             <AlertTriangle
               size={18}
               className="text-red-600"
             />
 
-            <h3 className="font-bold text-gray-900">
+            <h3 className="font-bold">
               {hazard.type}
             </h3>
+
           </div>
 
           <p className="mb-3 text-sm text-gray-600">
@@ -57,13 +63,17 @@ function HazardMarker({ hazard }) {
           </p>
 
           <div className="flex items-center gap-2 text-xs text-gray-500">
+
             <Clock size={14} />
 
             <span>
               {hazard.time}
             </span>
+
           </div>
+
         </div>
+
       </Popup>
     </Marker>
   )
