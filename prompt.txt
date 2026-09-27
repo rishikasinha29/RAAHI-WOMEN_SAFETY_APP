@@ -1,0 +1,572 @@
+I am continuing development of my full-stack women’s safety/navigation application called ANZEN (originally named RAAHI). Please use the context below as the complete starting point and continue from the current state. Do not restart the project architecture or recreate files unnecessarily. I want exact implementation and troubleshooting commands, preferably PowerShell commands for Windows.
+
+PROJECT
+---------
+Project/local folder:
+D:\Raahi_App_Capstone_2026-27
+
+GitHub repository:
+https://github.com/rishikasinha29/RAAHI-WOMEN_SAFETY_APP
+
+Application:
+ANZEN – Safety-Aware Navigation & Anonymous Hazard-Reporting System
+
+Goal:
+Build a professional full-stack safety/navigation application where users can:
+- Search source and destination like a navigation app.
+- Get route(s) from OSRM.
+- Analyze hazards near the route using PostgreSQL + PostGIS.
+- Calculate safety scores/classifications server-side.
+- View safety-aware route information on a Leaflet/OpenStreetMap map.
+- Report unsafe areas anonymously.
+- Use an SOS feature with browser geolocation and emergency number 112.
+- Have an admin panel for hazard moderation.
+
+TARGET PROJECT STRUCTURE
+------------------------
+RAAHI-WOMEN_SAFETY_APP/
+├── src/
+│   ├── components/
+│   ├── pages/
+│   ├── services/
+│   ├── hooks/
+│   ├── utils/
+│   ├── App.jsx
+│   ├── App.css
+│   └── main.jsx
+├── server/
+│   ├── index.js
+│   ├── db.js
+│   ├── auth.js
+│   ├── middleware.js
+│   ├── validation.js
+│   ├── scoring.js
+│   ├── routes/
+│   │   ├── geocode.js
+│   │   ├── routes.js
+│   │   ├── hazards.js
+│   │   ├── reports.js
+│   │   ├── sos.js
+│   │   └── admin.js
+│   └── services/
+│       ├── geocoding.js
+│       ├── routing.js
+│       └── hazardAnalysis.js
+├── db/
+│   ├── migrations/
+│   │   └── 001_initial.sql
+│   └── seed.sql
+├── tests/
+│   ├── scoring.test.js
+│   └── api.test.js
+├── .env.example
+├── docker-compose.yml
+├── Dockerfile
+├── .dockerignore
+├── vite.config.js
+├── .gitignore
+├── package.json
+└── README.md
+
+TECH STACK
+----------
+Frontend:
+- React 18
+- Vite
+- React Leaflet 4.2.1
+- Leaflet
+- Tailwind CSS v3
+- lucide-react
+
+Backend:
+- Node.js 22
+- Express
+- JWT
+- bcryptjs
+- Zod
+- Helmet
+- CORS
+- express-rate-limit
+- pg
+
+Database:
+- PostgreSQL + PostGIS using Docker
+- Docker container: anzen-postgis
+- Database: anzen
+- User: postgres
+- Password: postgres
+- Port: 5432
+
+External services:
+- OpenStreetMap tiles
+- Nominatim geocoding
+- OSRM routing
+
+CURRENT ENVIRONMENT
+-------------------
+.env currently contains:
+
+NODE_ENV=development
+PORT=4000
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/anzen
+JWT_SECRET=anzen-development-secret-change-this
+CORS_ORIGIN=http://localhost:5173
+EMERGENCY_NUMBER=112
+NOMINATIM_URL=https://nominatim.openstreetmap.org
+OSRM_URL=https://router.project-osrm.org
+RATE_LIMIT_WINDOW_MS=60000
+RATE_LIMIT_MAX=120
+ADMIN_EMAIL=admin@example.com
+ADMIN_PASSWORD=change_this_password
+VITE_EMERGENCY_NUMBER=112
+
+package.json uses:
+- npm run dev
+- npm run dev:client
+- npm run dev:server
+- npm run build
+- npm start
+- npm test
+
+Vite proxies /api to:
+http://localhost:4000
+
+IMPORTANT DATABASE ISSUE THAT WAS FIXED
+---------------------------------------
+Initially Node/Express could not authenticate to PostgreSQL.
+
+Investigation showed TWO PostgreSQL servers were listening on port 5432:
+- Windows PostgreSQL 18 process/service
+- Docker PostgreSQL/PostGIS container
+
+Windows PostgreSQL service:
+postgresql-x64-18
+
+It was stopped using Administrator PowerShell:
+Stop-Service -Name postgresql-x64-18
+
+Now only Docker owns port 5432.
+
+Current verification:
+docker ps shows:
+anzen-postgis
+0.0.0.0:5432->5432/tcp
+
+Node PostgreSQL test from project directory works:
+
+node --input-type=module -e "import pg from 'pg'; const {Pool}=pg; const pool=new Pool({host:'127.0.0.1',port:5432,user:'postgres',password:'postgres',database:'anzen',connectionTimeoutMillis:3000}); console.log('1. Pool created'); const client=await pool.connect(); console.log('2. Connected'); try { console.time('select1'); const a=await client.query('SELECT 1'); console.timeEnd('select1'); console.log('3. SELECT 1:',a.rows); console.time('count'); const b=await client.query('SELECT COUNT(*) FROM hazards'); console.timeEnd('count'); console.log('4. COUNT:',b.rows); } catch(e) { console.error('QUERY ERROR:',e); } finally { client.release(); await pool.end(); console.log('5. Pool closed'); }"
+
+Result:
+1. Pool created
+2. Connected
+3. SELECT 1: [ { '?column?': 1 } ]
+4. COUNT: [ { count: '0' } ]
+5. Pool closed
+
+Therefore PostgreSQL connectivity is WORKING.
+
+DATABASE SCHEMA
+---------------
+The migration succeeded.
+
+Important schema fact:
+hazards table DOES NOT have a category column.
+
+It has:
+category_id
+
+The category name is stored in:
+hazard_categories.name
+
+hazard_categories has these seeded categories:
+- Harassment
+- Dark Alley
+- Bad Crowd
+- Poor Lighting
+- Other
+
+There are currently ZERO rows in hazards.
+
+This query works:
+docker exec anzen-postgis psql -U postgres -d anzen -c "SELECT COUNT(*) FROM hazards;"
+
+Result:
+0
+
+CURRENT BACKEND STATUS
+----------------------
+Health:
+GET /api/health
+WORKING
+Returns:
+{"status":"ok","service":"ANZEN API",...}
+
+Hazards:
+GET /api/hazards
+WORKING
+Returns:
+{"hazards":[]}
+
+The original error was:
+column h.category does not exist
+Hint: Perhaps you meant to reference the column "h.category_id".
+
+This was fixed in server/routes/hazards.js by joining hazard_categories:
+
+JOIN hazard_categories c ON c.id = h.category_id
+
+and returning:
+c.name AS category
+
+CURRENT server/routes/hazards.js is intended to work like this:
+- GET / → active hazards with category name
+- GET /:id → individual hazard with category name
+- PATCH /:id → admin status update
+- DELETE /:id → admin deletion
+
+ROUTE ANALYSIS
+--------------
+The route API is NOW WORKING.
+
+POST:
+http://localhost:4000/api/routes/analyze
+
+Test input used:
+
+source:
+lat 23.0755086
+lon 76.8497778
+
+destination:
+lat 23.2901695
+lon 77.3303476
+
+PowerShell test:
+
+$body = @{
+    source = @{
+        lat = 23.0755086
+        lon = 76.8497778
+    }
+    destination = @{
+        lat = 23.2901695
+        lon = 77.3303476
+    }
+} | ConvertTo-Json
+
+Invoke-RestMethod `
+    -Uri "http://localhost:4000/api/routes/analyze" `
+    -Method POST `
+    -ContentType "application/json" `
+    -Body $body
+
+This returns route data.
+
+Observed response included approximately:
+- id: route-0
+- name: Recommended Route
+- distance: 59.97 km
+- duration: 70 min
+- score: 100
+- hazardCount: 0
+- geometry is present
+- route calculation succeeds
+
+The route score is 100 because the hazards table currently has no hazards.
+
+IMPORTANT BACKEND FIX
+---------------------
+server/services/hazardAnalysis.js originally also used h.category and caused the same schema mismatch.
+
+It was updated to use:
+
+JOIN hazard_categories c ON c.id = h.category_id
+
+and:
+c.name AS category
+
+The current file exports:
+analyzeRoute
+and also:
+analyzeHazardsNearRoute = analyzeRoute
+
+This was necessary because server/routes/routes.js imports analyzeRoute.
+
+CURRENT FRONTEND STATUS
+-----------------------
+Frontend runs at:
+http://localhost:5173
+
+The UI loads correctly and shows an OpenStreetMap/Leaflet map.
+
+The source/destination search UI works.
+
+The map currently shows a green route and the route panel.
+
+A screenshot showed:
+- Source: VIT Bhopal University
+- Destination: Raja Bhoj Airport
+- Map with green route
+- Route panel on left
+- SOS floating button
+- Safety/Emergency panel
+
+However, frontend integration still has OLD/HARDCODED behavior.
+
+CURRENT FRONTEND BUG #1 — ROUTE PANEL
+-------------------------------------
+Backend returns approximately:
+distance = 59.97 km
+duration = 70 min
+score = 100
+
+But UI currently displays:
+1 min
+0.1 km
+
+This proves RoutePanel.jsx is not using the real backend distance/duration values and is still using old/hard-coded/demo values somewhere.
+
+Select-String found:
+src/App.jsx
+src/components/RoutePanel.jsx
+src/components/SOSButton.jsx
+
+The string:
+"Recommended Route"
+appears in:
+- src/App.jsx
+- src/components/RoutePanel.jsx
+
+The literal values "1 min" and "0.1 km" were visually observed in the UI, but Select-String only found:
+src/App.jsx:82: ? "Recommended Route"
+src/components/RoutePanel.jsx:143: ? "Recommended Route"
+
+Need inspect current contents of:
+- src/App.jsx
+- src/components/RoutePanel.jsx
+
+and update them carefully without destroying the working UI.
+
+Goal:
+RoutePanel must consume the real object returned by:
+POST /api/routes/analyze
+
+and display:
+- actual distance
+- actual duration
+- actual score
+- actual classification
+- actual hazard count
+- actual route geometry
+rather than demo values.
+
+CURRENT FRONTEND BUG #2 — SOS
+-----------------------------
+The SOS button still runs an old placeholder.
+
+Screenshot showed browser alert:
+"Emergency service integration will be added in a future phase."
+
+Select-String found:
+
+src/components/SOSButton.jsx:26:
+"Emergency service integration will be added in a future phase."
+
+and:
+src/components/SOSButton.jsx:16:
+function handleSOS()
+
+Current SOS infrastructure already exists:
+
+src/services/sos.js
+contains the newer SOS implementation.
+
+src/services/api.js
+contains:
+createSosSession()
+
+The newer SOS flow is intended to:
+- get browser geolocation
+- POST the location to /api/sos/session
+- open tel:112
+- share/copy an OpenStreetMap location link
+- avoid falsely claiming that a call was completed
+
+Need inspect current:
+src/components/SOSButton.jsx
+and connect it to:
+src/services/sos.js
+
+Do NOT leave the old alert.
+
+IMPORTANT SOS SAFETY BEHAVIOR:
+The app should not claim that an emergency call was completed. It can trigger:
+window.location.href = "tel:112"
+or equivalent browser behavior and provide location sharing/copy options.
+
+CURRENT FRONTEND SERVICES ALREADY CREATED
+-----------------------------------------
+src/services/api.js
+contains API request helpers including:
+- searchLocations
+- analyzeRoutes
+- getHazards
+- submitReport
+- createSosSession
+- adminLogin
+- getAdminDashboard
+- updateHazardStatus
+- deleteHazard
+
+src/services/geocodingService.js
+uses backend geocoding only.
+
+src/services/routingService.js
+uses backend analyzeRoutes.
+
+src/services/safetyService.js
+contains frontend label helpers; actual safety scoring remains server-side.
+
+src/services/sos.js
+contains the newer SOS flow.
+
+src/hooks/useGeolocation.js
+exists.
+
+src/hooks/useHazards.js
+exists.
+
+src/utils/constants.js
+contains:
+- EMERGENCY_NUMBER
+- hazard types
+- route classifications
+
+src/utils/formatters.js
+contains distance/duration formatting.
+
+OLD DEMO DATA ISSUE
+-------------------
+The frontend screenshot still appears to show an old hard-coded red hazard marker on the map.
+
+Database currently contains ZERO hazards.
+
+Therefore some old local/mock hazard data is probably still embedded in App.jsx or another component.
+
+This should eventually be removed from production UI and replaced with GET /api/hazards.
+
+Do not blindly remove it yet. First inspect current App.jsx so we can replace it with the real API hazard layer.
+
+SOS AND REPORTING STATUS
+------------------------
+Report modal UI exists.
+
+Backend reporting endpoint exists:
+POST /api/reports
+
+Reports should persist into PostGIS.
+
+This still needs frontend end-to-end testing.
+
+SOS backend endpoint exists:
+POST /api/sos/session
+
+This still needs frontend integration testing.
+
+ADMIN
+-----
+Admin authentication/backend exists using:
+- bcrypt
+- JWT
+- requireAdmin middleware
+
+Admin routes exist:
+- POST /api/admin/login
+- GET /api/admin/dashboard
+
+Hazard moderation:
+- PATCH /api/hazards/:id
+- DELETE /api/hazards/:id
+
+No need to work on admin first. First fix the main user route/report/SOS frontend workflow.
+
+CURRENT BACKEND STATUS
+----------------------
+npm run dev:server
+works and outputs:
+ANZEN API running on port 4000
+
+The backend uses:
+node --watch server/index.js
+
+So saving backend files normally triggers restart automatically.
+
+IMPORTANT LESSON FROM PREVIOUS DEBUGGING
+----------------------------------------
+Do not modify PostgreSQL or Docker anymore unless a new database-specific error appears.
+
+The current database connection is healthy.
+
+The main remaining work is FRONTEND INTEGRATION.
+
+WHAT I WANT YOU TO DO NEXT
+--------------------------
+1. Inspect the current contents of:
+   - src/App.jsx
+   - src/components/RoutePanel.jsx
+   - src/components/SOSButton.jsx
+   - optionally src/services/sos.js and src/services/api.js
+
+2. Determine exactly how route data flows from:
+   App.jsx → routingService/api.js → /api/routes/analyze → RoutePanel
+
+3. Fix RoutePanel so it uses the real backend response:
+   - real distance
+   - real duration
+   - real safety score
+   - classification
+   - hazard count
+   - actual route geometry
+
+4. Fix SOSButton so it uses src/services/sos.js instead of the old alert.
+
+5. Remove/replace any hard-coded/mock hazard markers with the real GET /api/hazards data.
+
+6. Preserve the existing visual design/UI unless a change is necessary for functionality.
+
+7. Do not recreate the entire frontend from scratch.
+
+8. Give exact file replacements or exact code patches and exact PowerShell test commands.
+
+9. After each functional change, test the relevant API/UI flow before moving on.
+
+10. Continue toward a production-quality application rather than a demo with hard-coded values.
+
+CURRENT MOST IMPORTANT FILES TO INSPECT
+---------------------------------------
+D:\Raahi_App_Capstone_2026-27\src\App.jsx
+D:\Raahi_App_Capstone_2026-27\src\components\RoutePanel.jsx
+D:\Raahi_App_Capstone_2026-27\src\components\SOSButton.jsx
+D:\Raahi_App_Capstone_2026-27\src\services\sos.js
+D:\Raahi_App_Capstone_2026-27\src\services\api.js
+
+CURRENT VERIFIED STATE
+----------------------
+✅ Docker PostGIS running
+✅ Windows PostgreSQL conflict resolved by stopping PostgreSQL 18 service
+✅ PostgreSQL database `anzen` working
+✅ Node → PostgreSQL working
+✅ DB migration successful
+✅ /api/health working
+✅ /api/hazards working
+✅ /api/routes/analyze working
+✅ Frontend loads
+✅ Search UI works
+✅ Route is drawn on map
+❌ Route panel still displays old 1 min / 0.1 km values
+❌ SOS still shows old placeholder alert
+❌ Old hard-coded hazard marker(s) appear to remain
+❌ Full report persistence/frontend integration still needs testing
+❌ Full end-to-end SOS integration still needs testing
+
+Start by inspecting the five frontend files above and then give me the exact changes needed. Do not ask me to rebuild the project from scratch.

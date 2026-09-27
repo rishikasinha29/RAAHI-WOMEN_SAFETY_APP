@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgis/postgis:16-3.4
+
+    container_name: anzen-postgis
+
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: anzen
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - anzen_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  anzen_postgres_data:

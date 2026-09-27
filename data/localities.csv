@@ -1,0 +1,134 @@
+locality_id,city,locality_name,locality_type,nearby_landmark,frequency_count,frequency_status,source,data_status
+LOC-0001,Delhi,Connaught Place,Commercial/historic core,Central Delhi landmark market,,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0002,Delhi,Khan Market,Upscale commercial locality,"South Delhi, near Lodhi Gardens",,PENDING,Expedia/Hotels.com city neighbourhood guide,Reference locality
+LOC-0003,Delhi,Vasant Vihar,Residential locality,"South-west Delhi, diplomatic enclave nearby",,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0004,Delhi,Vasant Kunj,Residential locality,Foothills of Aravalli range,,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0005,Delhi,Dwarka,Large planned residential sub-city,"South-west Delhi, near IGI Airport",,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0006,Delhi,Greater Kailash,Residential locality,"South Delhi, M-Block/N-Block markets",,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0007,Delhi,Saket,Residential/commercial locality,"South Delhi, near Select Citywalk mall",,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0008,Delhi,Hauz Khas (incl. Hauz Khas Village),Residential/commercial locality,"South Delhi, historic reservoir & urban village",,PENDING,Expedia/Hotels.com city neighbourhood guide,Reference locality
+LOC-0009,Delhi,Nizamuddin East,Residential locality,Near Humayun's Tomb,,PENDING,Expedia/Hotels.com city neighbourhood guide,Reference locality
+LOC-0010,Delhi,Green Park,Residential locality,"South Delhi, borders Deer Park",,PENDING,Expedia/Hotels.com city neighbourhood guide,Reference locality
+LOC-0011,Delhi,Lodhi Colony,Residential locality,"Central Delhi, near Lodi Gardens",,PENDING,"TheCultureTrip, Coolest Neighbourhoods in [City]",Reference locality
+LOC-0012,Delhi,Shahpur Jat,Urban village/commercial locality,"South Delhi, designer boutique hub",,PENDING,"TheCultureTrip, Coolest Neighbourhoods in [City]",Reference locality
+LOC-0013,Delhi,Jor Bagh,Residential locality,"Inner ring road, near Lodi Gardens",,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0014,Delhi,Golf Links,Residential locality,"South Delhi, near Prithviraj Road",,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0015,Delhi,Chanakyapuri,Diplomatic enclave,South-west Delhi,,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0016,Delhi,Rama Krishna Puram (RK Puram),Residential locality,South-west Delhi,,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0017,Delhi,Sarojini Nagar,Residential/market locality,"South Delhi, famous market",,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0018,Delhi,Karol Bagh,Commercial/residential locality,Central Delhi market district,,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0019,Delhi,Majnu ka Tila,Tibetan enclave,"North Delhi, near Yamuna riverbank",,PENDING,"TheCultureTrip, Coolest Neighbourhoods in [City]",Reference locality
+LOC-0020,Mumbai,Bandra (West & East),Residential/commercial suburb,"Bandstand Promenade, Mount Mary Church",,PENDING,"TheCultureTrip, Coolest Neighbourhoods in [City]",Reference locality
+LOC-0021,Mumbai,Andheri (East & West),Residential/commercial suburb,"Western Express Highway, near airport",,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0022,Mumbai,Colaba,Historic/tourist locality,"Gateway of India, Colaba Causeway",,PENDING,"TheCultureTrip, Coolest Neighbourhoods in [City]",Reference locality
+LOC-0023,Mumbai,Juhu,Coastal residential locality,"Juhu Beach, film industry hub",,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0024,Mumbai,Powai,Residential locality,"Powai Lake, IT business park",,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0025,Mumbai,Malabar Hill,Upscale residential locality,South Mumbai,,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0026,Mumbai,Marine Drive,Promenade/residential locality,Queen's Necklace seafront,,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0027,Mumbai,Dadar,Residential/commercial locality,Central Mumbai,,PENDING,Expedia/Hotels.com city neighbourhood guide,Reference locality
+LOC-0028,Mumbai,Chembur,Residential/industrial locality,Eastern suburbs,,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0029,Mumbai,Kurla,Residential/commercial locality,"Central suburbs, transport hub",,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0030,Mumbai,Worli,Residential/commercial locality,Bandra-Worli Sea Link,,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0031,Mumbai,Mahim,Residential locality,Central Mumbai,,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0032,Mumbai,Ghatkopar,Residential locality,"Eastern suburbs, metro hub",,PENDING,Expedia/Hotels.com city neighbourhood guide,Reference locality
+LOC-0033,Mumbai,Mulund,Residential locality,North-eastern suburbs,,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0034,Mumbai,Versova,Coastal residential locality,Western suburbs,,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0035,Mumbai,Kala Ghoda,Art/heritage locality,South Mumbai art district,,PENDING,"TheCultureTrip, Coolest Neighbourhoods in [City]",Reference locality
+LOC-0036,Mumbai,Fort area,Commercial/heritage locality,South Mumbai CBD,,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0037,Mumbai,Vile Parle,Residential locality,Near domestic/international airport,,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0038,Mumbai,Bandra Kurla Complex (BKC),Commercial business district,Between Bandra and Kurla,,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0039,Mumbai,Dharavi,Dense residential/informal-economy locality,Central Mumbai,,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0040,Bengaluru,Indiranagar,Residential/commercial locality,100 Feet Road nightlife hub,,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0041,Bengaluru,Koramangala,Residential/commercial locality,Start-up & cafe hub,,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0042,Bengaluru,Jayanagar,Residential locality,"South Bengaluru, planned layout",,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0043,Bengaluru,Malleswaram,Residential locality,"Colonial-era, North Bengaluru",,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0044,Bengaluru,Whitefield,IT hub/residential locality,Major tech park cluster,,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0045,Bengaluru,HSR Layout,Residential locality,South-east Bengaluru,,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0046,Bengaluru,Sadashivanagar,Upscale residential locality,"Near Sankey Tank, CM's residence",,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0047,Bengaluru,Richmond Town,Residential locality,"Central Bengaluru, Cantonment area",,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0048,Bengaluru,Fraser Town,Residential locality,Cantonment area,,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0049,Bengaluru,Domlur,Commercial/residential locality,"IT outsourcing hub, near HAL Airport",,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0050,Bengaluru,Rajajinagar,Residential locality,Established 1949,,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0051,Bengaluru,Chickpet / Pete area,Commercial/market locality,Historic trade centre founded by Kempe Gowda I,,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0052,Bengaluru,Shivajinagar,Commercial/transit locality,"Russell Market, Cantonment railway station",,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0053,Bengaluru,Ulsoor (Halasuru),Residential locality,One of the oldest areas of the city,,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0054,Bengaluru,Electronic City,IT hub,South Bengaluru tech park cluster,,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0055,Bengaluru,Marathahalli,Residential/commercial locality,Near Outer Ring Road IT corridor,,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0056,Chennai,Adyar,Upscale residential locality,Southern banks of Adyar River,,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0057,Chennai,T. Nagar (Thyagaraya Nagar),Commercial/residential locality,Largest shopping district in India by revenue,,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0058,Chennai,Mylapore,Historic residential locality,Kapaleeshwarar Temple,,PENDING,"TheCultureTrip, Coolest Neighbourhoods in [City]",Reference locality
+LOC-0059,Chennai,Anna Nagar,Residential locality,"Socially active, planned layout",,PENDING,"TheCultureTrip, Coolest Neighbourhoods in [City]",Reference locality
+LOC-0060,Chennai,Nungambakkam,Commercial/residential locality,Khader Nawaz Khan Road retail strip,,PENDING,"TheCultureTrip, Coolest Neighbourhoods in [City]",Reference locality
+LOC-0061,Chennai,Besant Nagar,Coastal residential locality,Near Elliot's Beach,,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0062,Chennai,Egmore,Historic residential locality,"Government Museum, transport hub",,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0063,Chennai,Gopalapuram,Residential locality,Central Chennai,,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0064,Chennai,Mandaveli,Residential locality,"Near SUN TV Network, tech parks",,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0065,Chennai,Guindy,Commercial/residential locality,Taluk headquarters area,,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0066,Chennai,Porur,Residential locality,West Chennai,,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0067,Chennai,Kotturpuram,Residential locality,North-west of Adyar,,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0068,Chennai,Velachery,Residential/IT locality,South Chennai IT corridor,,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0069,Chennai,George Town,Historic commercial locality,Original colonial-era CBD,,PENDING,Expedia/Hotels.com city neighbourhood guide,Reference locality
+LOC-0070,Kolkata,Park Street,Commercial/entertainment locality,Colonial-era nightlife hub,,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0071,Kolkata,Salt Lake City (Bidhannagar),Planned residential/IT locality,Sector V IT hub,,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0072,Kolkata,Ballygunge,Upscale residential locality,South Kolkata elite neighbourhood,,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0073,Kolkata,Rajarhat,Emerging satellite township,Modern planned development,,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0074,Kolkata,New Alipore,Residential locality,Near Alipore Zoo,,PENDING,"TheCultureTrip, Coolest Neighbourhoods in [City]",Reference locality
+LOC-0075,Kolkata,Esplanade,Historic commercial locality,Near Victoria Memorial,,PENDING,Expedia/Hotels.com city neighbourhood guide,Reference locality
+LOC-0076,Kolkata,Bhowanipore,Residential locality,Central-South Kolkata,,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0077,Kolkata,Gariahat,Commercial/market locality,South Kolkata market hub,,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0078,Kolkata,Tollygunge,Residential locality,"South Kolkata, film studio hub",,PENDING,Expedia/Hotels.com city neighbourhood guide,Reference locality
+LOC-0079,Kolkata,New Town,Emerging planned locality,"Near Eco Park, airport-adjacent",,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0080,Kolkata,Behala,Residential locality,South-west Kolkata,,PENDING,Expedia/Hotels.com city neighbourhood guide,Reference locality
+LOC-0081,Kolkata,Jadavpur,Residential/educational locality,Jadavpur University area,,PENDING,Expedia/Hotels.com city neighbourhood guide,Reference locality
+LOC-0082,Kolkata,Kalighat,Historic residential locality,Kali Temple,,PENDING,Expedia/Hotels.com city neighbourhood guide,Reference locality
+LOC-0083,Kolkata,Alipore,Upscale residential locality,"Near National Library, Alipore Zoo",,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0084,Kolkata,Sealdah,Transit/commercial locality,Major railway station area,,PENDING,Expedia/Hotels.com city neighbourhood guide,Reference locality
+LOC-0085,Kolkata,Bara Bazar (Burrabazar),Commercial/wholesale market locality,Central Kolkata trading hub,,PENDING,Expedia/Hotels.com city neighbourhood guide,Reference locality
+LOC-0086,Hyderabad,Banjara Hills,Upscale commercial/residential locality,Near Jubilee Hills,,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0087,Hyderabad,Jubilee Hills,Upscale residential locality,Near Gachibowli/HITEC City,,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0088,Hyderabad,HITEC City,IT hub,Major tech park cluster,,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0089,Hyderabad,Gachibowli,IT hub/residential locality,Financial district area,,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0090,Hyderabad,Madhapur,IT/residential locality,Near HITEC City,,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0091,Hyderabad,Film Nagar,Residential locality,Film industry hub,,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0092,Hyderabad,Secunderabad,Twin-city commercial/residential locality,Historic Cantonment,,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0093,Hyderabad,Ameerpet,Commercial/residential locality,Coaching-institute hub,,PENDING,Expedia/Hotels.com city neighbourhood guide,Reference locality
+LOC-0094,Hyderabad,Begumpet,Residential/commercial locality,Near old airport,,PENDING,Expedia/Hotels.com city neighbourhood guide,Reference locality
+LOC-0095,Hyderabad,Abids,Historic commercial locality,Central Hyderabad,,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0096,Hyderabad,Koti,Commercial locality,Central Hyderabad,,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0097,Hyderabad,Nampally,Residential/transit locality,Near Nampally railway station,,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0098,Hyderabad,Mehdipatnam,Residential/transit locality,West Hyderabad,,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0099,Pune,Koregaon Park,Upscale residential/commercial locality,"Osho Ashram, German Bakery area",,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0100,Pune,Kalyani Nagar,Residential locality,Near Pune Airport,,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0101,Pune,Viman Nagar,Residential locality,"Near Pune Airport, Phoenix Mall",,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0102,Pune,Baner,Residential/IT locality,Near Hinjewadi IT corridor,,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0103,Pune,Wakad,Residential locality,Near Hinjewadi IT Park,,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0104,Pune,Aundh,Residential locality,"Established locality, Westend Mall",,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0105,Pune,Kothrud,Residential/educational locality,"Western Pune, near Karve Road",,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0106,Pune,Hadapsar,IT/residential locality,"IBM, Accenture, TCS offices",,PENDING,"TheCultureTrip, Coolest Neighbourhoods in [City]",Reference locality
+LOC-0107,Pune,Hinjewadi,IT hub,Major Pune IT park,,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0108,Pune,Deccan Gymkhana,Historic residential locality,"Near Shanivar Wada, Pune University",,PENDING,"TheCultureTrip, Coolest Neighbourhoods in [City]",Reference locality
+LOC-0109,Pune,Shivajinagar,Commercial/administrative locality,Central Pune,,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0110,Pune,Erandwane,Residential locality,Near Karve Road,,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0111,Pune,Magarpatta,Planned residential/IT township,Near Hadapsar,,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0112,Pune,Katraj,Residential locality,South Pune,,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0113,Pune,Bavdhan,Residential locality,"Near Pashan Lake, three hills",,PENDING,"TheCultureTrip, Coolest Neighbourhoods in [City]",Reference locality
+LOC-0114,Bhopal,Arera Colony (Sectors E-1 to E-7),Residential colony,"Central Bhopal, near Upper Lake / Arera Hills",,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0115,Bhopal,Shahpura,Residential colony,"Adjoining Arera Colony, near Shahpura Lake",,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0116,Bhopal,MP Nagar (Zone I & II),Commercial/residential locality,Central Bhopal commercial hub,,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0117,Bhopal,Hoshangabad Road,Arterial road/residential corridor,Connects to NH-45,,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0118,Bhopal,Ayodhya Bypass Road,Arterial road,Links Vidisha Road and Raisen Road,,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0119,Bhopal,Ayodhya Nagar,Residential locality,Near Ayodhya Bypass Road,,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0120,Bhopal,Katara Hills,Suburban residential locality,Near AIIMS Bhopal,,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0121,Bhopal,Kolar Road,Arterial road/residential hub,~7 km from city centre,,PENDING,Housing.com / Godrej Properties / Sobha — best/posh localities guides,Reference locality
+LOC-0122,Bhopal,Maharana Pratap Nagar,Residential/commercial locality,Near TT Nagar Stadium,,PENDING,Expedia/Hotels.com city neighbourhood guide,Reference locality
+LOC-0123,Bhopal,Bawadiya Kalan,Residential locality,Near Shahpura Lake,,PENDING,Expedia/Hotels.com city neighbourhood guide,Reference locality
+LOC-0124,Bhopal,Shyamla Hills,Residential/institutional locality,"Near Upper Lake, State Museum",,PENDING,Expedia/Hotels.com city neighbourhood guide,Reference locality
+LOC-0125,Bhopal,T T Nagar,Central locality,Near New Market,,PENDING,Expedia/Hotels.com city neighbourhood guide,Reference locality
+LOC-0126,Bhopal,Govindpura,Residential/industrial locality,Site of Govindpura Industrial Area,,PENDING,Expedia/Hotels.com city neighbourhood guide,Reference locality
+LOC-0127,Bhopal,Kalpana Nagar,Residential area,"Ward 64, near BHEL Township",,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0128,Bhopal,Piplani,Town/locality within BHEL Township,Houses BHEL factory,,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0129,Bhopal,Ashoka Garden,Residential/commercial locality,Site of reported 2026 assault incidents (see Crime_Database),,PENDING,"Free Press Journal, 2026",Reference locality
+LOC-0130,Bhopal,Ratibad,Peri-urban locality,Site of reported 2026 assault incident (see Crime_Database),,PENDING,"Free Press Journal, 2026",Reference locality
+LOC-0131,Bhopal,Habibganj (Rani Kamlapati area),Railway station/commercial locality,Major railway station,,PENDING,Expedia/Hotels.com city neighbourhood guide,Reference locality
+LOC-0132,Bhopal,Bairagarh,Residential/industrial locality,Northwest Bhopal,,PENDING,Wikipedia — locality-specific article,Reference locality
+LOC-0133,Bhopal,New Market,Commercial locality,Central Bhopal,,PENDING,Expedia/Hotels.com city neighbourhood guide,Reference locality

@@ -1,4 +1,3 @@
-
 import { useState } from "react"
 
 import {
@@ -8,126 +7,68 @@ import {
   LoaderCircle,
 } from "lucide-react"
 
-import { searchLocation } from "../services/geocodingService"
+import { searchLocations } from "../services/api"
 
 
 function RouteSearch({
   onRouteSearch,
 }) {
+  const [source, setSource] = useState("")
+  const [destination, setDestination] = useState("")
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
 
-  const [source, setSource] =
-    useState("")
-
-  const [destination, setDestination] =
-    useState("")
-
-  const [loading, setLoading] =
-    useState(false)
-
-  const [error, setError] =
-    useState("")
-
-
-  // --------------------------------------------------
-  // SEARCH ROUTE
-  // --------------------------------------------------
 
   async function handleSearch(event) {
-
     event.preventDefault()
 
-    if (!source.trim()) {
+    const sourceQuery = source.trim()
+    const destinationQuery = destination.trim()
 
-      setError(
-        "Please enter a source location."
-      )
-
+    if (!sourceQuery) {
+      setError("Please enter a source location.")
       return
     }
 
-    if (!destination.trim()) {
-
-      setError(
-        "Please enter a destination."
-      )
-
+    if (!destinationQuery) {
+      setError("Please enter a destination.")
       return
     }
-
 
     setLoading(true)
     setError("")
 
-
     try {
-
-      // ----------------------------------------------
-      // Search source
-      // ----------------------------------------------
-
       const sourceResults =
-        await searchLocation(source)
+        await searchLocations(sourceQuery)
 
-
-      if (sourceResults.length === 0) {
-
+      if (
+        !Array.isArray(sourceResults) ||
+        sourceResults.length === 0
+      ) {
         throw new Error(
           "Source location could not be found."
         )
       }
 
-
-      // ----------------------------------------------
-      // Search destination
-      // ----------------------------------------------
-
       const destinationResults =
-        await searchLocation(
-          destination
-        )
+        await searchLocations(destinationQuery)
 
-
-      if (destinationResults.length === 0) {
-
+      if (
+        !Array.isArray(destinationResults) ||
+        destinationResults.length === 0
+      ) {
         throw new Error(
           "Destination location could not be found."
         )
       }
 
-
-      // ----------------------------------------------
-      // Use first matching location
-      // ----------------------------------------------
-
-      const sourceLocation =
-        sourceResults[0]
-
-      const destinationLocation =
-        destinationResults[0]
-
-
-      console.log(
-        "Source location:",
-        sourceLocation
-      )
-
-      console.log(
-        "Destination location:",
-        destinationLocation
-      )
-
-
-      // ----------------------------------------------
-      // Calculate route
-      // ----------------------------------------------
-
       await onRouteSearch(
-        sourceLocation,
-        destinationLocation
+        sourceResults[0],
+        destinationResults[0]
       )
 
     } catch (error) {
-
       console.error(
         "Route search error:",
         error
@@ -139,388 +80,268 @@ function RouteSearch({
       )
 
     } finally {
-
       setLoading(false)
-
     }
   }
 
 
-  // --------------------------------------------------
-  // CURRENT LOCATION
-  // --------------------------------------------------
-
-  function useCurrentLocation() {
-
-    if (!navigator.geolocation) {
-
-      setError(
-        "Geolocation is not supported by this browser."
-      )
-
-      return
-    }
-
-
-    setLoading(true)
-    setError("")
-
-
-    navigator.geolocation.getCurrentPosition(
-
-      async (position) => {
-
-        try {
-
-          // ------------------------------------------
-          // Current location
-          // ------------------------------------------
-
-          const currentLocation = {
-
-            lat:
-              position.coords.latitude,
-
-            lon:
-              position.coords.longitude,
-
-            latitude:
-              position.coords.latitude,
-
-            longitude:
-              position.coords.longitude,
-
-            displayName:
-              "Current Location",
-
-          }
-
-
-          setSource(
-            "Current Location"
-          )
-
-
-          // ------------------------------------------
-          // Destination required
-          // ------------------------------------------
-
-          if (!destination.trim()) {
-
-            setError(
-              "Now enter a destination."
-            )
-
-            return
-          }
-
-
-          // ------------------------------------------
-          // Search destination
-          // ------------------------------------------
-
-          const destinationResults =
-            await searchLocation(
-              destination
-            )
-
-
-          if (
-            destinationResults.length === 0
-          ) {
-
-            throw new Error(
-              "Destination location could not be found."
-            )
-          }
-
-
-          const destinationLocation =
-            destinationResults[0]
-
-
-          console.log(
-            "Current location:",
-            currentLocation
-          )
-
-          console.log(
-            "Destination location:",
-            destinationLocation
-          )
-
-
-          // ------------------------------------------
-          // Calculate route
-          // ------------------------------------------
-
-          await onRouteSearch(
-            currentLocation,
-            destinationLocation
-          )
-
-        } catch (error) {
-
-          console.error(
-            "Current location routing error:",
-            error
-          )
-
-          setError(
-            error.message ||
-            "Unable to find destination."
-          )
-
-        } finally {
-
-          setLoading(false)
-
-        }
-      },
-
-
-      () => {
-
-        setLoading(false)
-
-        setError(
-          "Unable to access your current location."
+  function getCurrentPosition(options) {
+    return new Promise(
+      (resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(
+          resolve,
+          reject,
+          options
         )
-
       }
-
     )
   }
 
 
-  // --------------------------------------------------
-  // UI
-  // --------------------------------------------------
+  async function useCurrentLocation() {
+    if (!navigator.geolocation) {
+      setError(
+        "Geolocation is not supported by this browser."
+      )
+      return
+    }
+
+    if (!destination.trim()) {
+      setError("Now enter a destination.")
+      return
+    }
+
+    setLoading(true)
+    setError("")
+
+    try {
+      let position
+
+      try {
+        /*
+         * First attempt:
+         * Use the browser's normal location provider.
+         * This is generally faster on desktop systems.
+         */
+        position =
+          await getCurrentPosition({
+            enableHighAccuracy: false,
+            timeout: 10000,
+            maximumAge: 30000,
+          })
+      } catch (firstError) {
+        console.warn(
+          "Normal location request failed. Retrying with high accuracy.",
+          firstError
+        )
+
+        /*
+         * Second attempt:
+         * Request a more accurate location.
+         */
+        position =
+          await getCurrentPosition({
+            enableHighAccuracy: true,
+            timeout: 15000,
+            maximumAge: 0,
+          })
+      }
+
+      const latitude =
+        position.coords.latitude
+
+      const longitude =
+        position.coords.longitude
+
+      const accuracy =
+        position.coords.accuracy
+
+      console.log(
+        "[RouteSearch] Current location:",
+        {
+          latitude,
+          longitude,
+          accuracy,
+        }
+      )
+
+      const currentLocation = {
+        lat: latitude,
+        lon: longitude,
+        latitude,
+        longitude,
+        displayName: "Current Location",
+        accuracy,
+      }
+
+      setSource("Current Location")
+
+      const destinationQuery =
+        destination.trim()
+
+      const destinationResults =
+        await searchLocations(
+          destinationQuery
+        )
+
+      if (
+        !Array.isArray(destinationResults) ||
+        destinationResults.length === 0
+      ) {
+        throw new Error(
+          "Destination location could not be found."
+        )
+      }
+
+      await onRouteSearch(
+        currentLocation,
+        destinationResults[0]
+      )
+
+    } catch (error) {
+      console.error(
+        "Current location routing error:",
+        error
+      )
+
+      if (
+        error &&
+        typeof error.code === "number"
+      ) {
+        switch (error.code) {
+          case 1:
+            setError(
+              "Location permission was denied. Please allow location access for ANZEN."
+            )
+            break
+
+          case 2:
+            setError(
+              "Your location could not be determined. Please try again."
+            )
+            break
+
+          case 3:
+            setError(
+              "Location request timed out. Please try again."
+            )
+            break
+
+          default:
+            setError(
+              "Unable to access your current location."
+            )
+        }
+      } else {
+        setError(
+          error.message ||
+          "Unable to find destination."
+        )
+      }
+
+    } finally {
+      setLoading(false)
+    }
+  }
+
 
   return (
-
-    <div
-      className="
-        absolute
-        left-1/2
-        top-4
-        z-[1000]
-        w-[calc(100%-32px)]
-        max-w-xl
-        -translate-x-1/2
-      "
+    <form
+      onSubmit={handleSearch}
+      className="route-search-card"
     >
 
-      <form
-        onSubmit={handleSearch}
-        className="
-          rounded-2xl
-          bg-white
-          p-3
-          shadow-xl
-        "
-      >
+      <div className="route-search-field">
 
-        {/* ------------------------------------------
-            SOURCE
-        ------------------------------------------- */}
+        <div className="route-search-icon from">
+          <MapPin size={18} />
+        </div>
 
-        <div
-          className="
-            flex
-            items-center
-            gap-3
-            px-2
-            py-2
-          "
-        >
-
-          <MapPin
-            size={20}
-            className="text-green-600"
-          />
-
+        <div className="route-search-field-content">
+          <span>FROM</span>
 
           <input
             value={source}
-
             onChange={(event) =>
-              setSource(
-                event.target.value
-              )
+              setSource(event.target.value)
             }
-
-            placeholder="From: source location"
-
-            className="
-              w-full
-              bg-transparent
-              text-sm
-              outline-none
-            "
+            placeholder="Enter starting point"
+            autoComplete="off"
           />
-
-
-          <button
-            type="button"
-
-            onClick={
-              useCurrentLocation
-            }
-
-            title="Use current location"
-
-            className="
-              rounded-lg
-              p-2
-              hover:bg-gray-100
-            "
-          >
-
-            <Navigation
-              size={18}
-              className="text-blue-600"
-            />
-
-          </button>
-
         </div>
 
-
-        <div
-          className="
-            mx-2
-            border-t
-          "
-        />
-
-
-        {/* ------------------------------------------
-            DESTINATION
-        ------------------------------------------- */}
-
-        <div
-          className="
-            flex
-            items-center
-            gap-3
-            px-2
-            py-2
-          "
+        <button
+          type="button"
+          onClick={useCurrentLocation}
+          title="Use current location"
+          className="route-current-button"
         >
+          <Navigation size={17} />
+        </button>
 
-          <Search
-            size={20}
-            className="text-red-600"
-          />
+      </div>
 
+
+      <div className="route-search-connector" />
+
+
+      <div className="route-search-field">
+
+        <div className="route-search-icon to">
+          <Search size={18} />
+        </div>
+
+        <div className="route-search-field-content">
+          <span>TO</span>
 
           <input
             value={destination}
-
             onChange={(event) =>
-              setDestination(
-                event.target.value
-              )
+              setDestination(event.target.value)
             }
-
-            placeholder="To: destination"
-
-            className="
-              w-full
-              bg-transparent
-              text-sm
-              outline-none
-            "
+            placeholder="Enter destination"
+            autoComplete="off"
           />
-
         </div>
 
-
-        {/* ------------------------------------------
-            FIND ROUTE
-        ------------------------------------------- */}
-
-        <button
-          type="submit"
-
-          disabled={loading}
-
-          className="
-            mt-2
-            flex
-            w-full
-            items-center
-            justify-center
-            gap-2
-            rounded-xl
-            bg-black
-            px-4
-            py-3
-            text-sm
-            font-semibold
-            text-white
-            transition
-            hover:bg-gray-800
-            disabled:opacity-60
-          "
-        >
-
-          {loading ? (
-
-            <>
-
-              <LoaderCircle
-                size={18}
-                className="animate-spin"
-              />
-
-              Finding route...
-
-            </>
-
-          ) : (
-
-            <>
-
-              <Navigation
-                size={18}
-              />
-
-              Find Safe Route
-
-            </>
-
-          )}
-
-        </button>
+      </div>
 
 
-        {/* ------------------------------------------
-            ERROR
-        ------------------------------------------- */}
+      <button
+        type="submit"
+        disabled={loading}
+        className="route-search-submit"
+      >
 
-        {error && (
+        {loading ? (
+          <>
+            <LoaderCircle
+              size={17}
+              className="animate-spin"
+            />
 
-          <p
-            className="
-              px-2
-              pt-2
-              text-sm
-              text-red-600
-            "
-          >
-            {error}
-          </p>
+            Finding route...
+          </>
+        ) : (
+          <>
+            <Navigation size={17} />
 
+            Find Safe Route
+          </>
         )}
 
-      </form>
+      </button>
 
-    </div>
+
+      {error && (
+        <div className="route-search-error">
+          {error}
+        </div>
+      )}
+
+    </form>
   )
 }
 
 
 export default RouteSearch
-

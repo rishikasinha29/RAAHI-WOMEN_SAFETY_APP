@@ -1,0 +1,54 @@
+city_id,city_name,state_name,population_2011_lakh,ncrb_city_covered
+IN-CITY-001,Ahmedabad,Gujarat,63.5,1
+IN-CITY-002,Bengaluru,Karnataka,85,1
+IN-CITY-003,Chennai,Tamil Nadu,87,1
+IN-CITY-004,Coimbatore,Tamil Nadu,21.5,1
+IN-CITY-005,Delhi,Delhi (NCT),163.1,1
+IN-CITY-006,Ghaziabad,Uttar Pradesh,23.6,1
+IN-CITY-007,Hyderabad,Telangana,77.5,1
+IN-CITY-008,Indore,Madhya Pradesh,21.7,1
+IN-CITY-009,Jaipur,Rajasthan,30.7,1
+IN-CITY-010,Kanpur,Uttar Pradesh,29.2,1
+IN-CITY-011,Kochi,Kerala,21.2,1
+IN-CITY-012,Kolkata,West Bengal,141.1,1
+IN-CITY-013,Kozhikode,Kerala,20.3,1
+IN-CITY-014,Lucknow,Uttar Pradesh,29.0,1
+IN-CITY-015,Mumbai,Maharashtra,184.1,1
+IN-CITY-016,Nagpur,Maharashtra,25.0,1
+IN-CITY-017,Patna,Bihar,20.5,1
+IN-CITY-018,Pune,Maharashtra,50.5,1
+IN-CITY-019,Surat,Gujarat,45.8,1
+IN-CITY-020,Agra,Uttar Pradesh,17.5,1
+IN-CITY-021,Amritsar,Punjab,11.8,1
+IN-CITY-022,Asansol,West Bengal,12.4,1
+IN-CITY-023,Aurangabad,Maharashtra,11.9,1
+IN-CITY-024,Bhopal,Madhya Pradesh,18.8,1
+IN-CITY-025,Chandigarh City,Chandigarh (UT),10.3,1
+IN-CITY-026,Dhanbad,Jharkhand,11.9,1
+IN-CITY-027,Durg-Bhilainagar,Chhattisgarh,10.6,1
+IN-CITY-028,Faridabad,Haryana,14.1,1
+IN-CITY-029,Gwalior,Madhya Pradesh,11.0,1
+IN-CITY-030,Jabalpur,Madhya Pradesh,12.7,1
+IN-CITY-031,Jamshedpur,Jharkhand,13.4,1
+IN-CITY-032,Jodhpur,Rajasthan,11.4,1
+IN-CITY-033,Kannur,Kerala,16.4,1
+IN-CITY-034,Kollam,Kerala,11.1,1
+IN-CITY-035,Kota,Rajasthan,10.0,1
+IN-CITY-036,Ludhiana,Punjab,16.1,1
+IN-CITY-037,Madurai,Tamil Nadu,14.6,1
+IN-CITY-038,Malappuram,Kerala,17.0,1
+IN-CITY-039,Meerut,Uttar Pradesh,14.3,1
+IN-CITY-040,Nasik,Maharashtra,15.6,1
+IN-CITY-041,Prayagraj,Uttar Pradesh,12.2,1
+IN-CITY-042,Raipur,Chhattisgarh,11.2,1
+IN-CITY-043,Rajkot,Gujarat,13.9,1
+IN-CITY-044,Ranchi,Jharkhand,11.3,1
+IN-CITY-045,Srinagar,Jammu & Kashmir (UT),12.7,1
+IN-CITY-046,Thiruvananthapuram,Kerala,16.9,1
+IN-CITY-047,Thrissur,Kerala,18.5,1
+IN-CITY-048,Tiruchirapalli,Tamil Nadu,10.2,1
+IN-CITY-049,Vadodara,Gujarat,18.2,1
+IN-CITY-050,Varanasi,Uttar Pradesh,14.4,1
+IN-CITY-051,Vasai Virar,Maharashtra,12.2,1
+IN-CITY-052,Vijayawada,Andhra Pradesh,14.9,1
+IN-CITY-053,Vishakhapatnam,Andhra Pradesh,17.3,1

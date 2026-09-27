@@ -1,184 +1,1892 @@
-.counter {
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: var(--accent);
-  background: var(--accent-bg);
-  border: 2px solid transparent;
-  transition: border-color 0.3s;
-  margin-bottom: 24px;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  &:hover {
-    border-color: var(--accent-border);
-  }
-  &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
+
+/* =========================================================
+   ANZEN DESIGN SYSTEM
+========================================================= */
+
+:root {
+  --anzen-navy: #071a33;
+  --anzen-navy-2: #0b2445;
+  --anzen-blue: #2563eb;
+  --anzen-red: #ef3340;
+  --anzen-green: #10b981;
+
+  --anzen-text: #172033;
+  --anzen-muted: #718096;
+
+  --anzen-white: rgba(255, 255, 255, 0.97);
+  --anzen-border: rgba(15, 23, 42, 0.08);
+
+  --anzen-shadow:
+    0 14px 40px rgba(15, 23, 42, 0.15);
+
+  --anzen-shadow-lg:
+    0 20px 50px rgba(15, 23, 42, 0.16);
+
+  --anzen-radius: 12px;
 }
 
-.hero {
-  position: relative;
 
-  .base,
-  .framework,
-  .vite {
-    inset-inline: 0;
-    margin: 0 auto;
-  }
+/* =========================================================
+   GLOBAL
+========================================================= */
 
-  .base {
-    width: 170px;
-    position: relative;
-    z-index: 0;
-  }
-
-  .framework,
-  .vite {
-    position: absolute;
-  }
-
-  .framework {
-    z-index: 1;
-    top: 34px;
-    height: 28px;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
-      scale(1.4);
-  }
-
-  .vite {
-    z-index: 0;
-    top: 107px;
-    height: 26px;
-    width: auto;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
-      scale(0.8);
-  }
-}
-
-#center {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  place-content: center;
-  place-items: center;
-  flex-grow: 1;
-
-  @media (max-width: 1024px) {
-    padding: 32px 20px 24px;
-    gap: 18px;
-  }
-}
-
-#next-steps {
-  display: flex;
-  border-top: 1px solid var(--border);
-  text-align: left;
-
-  & > div {
-    flex: 1 1 0;
-    padding: 32px;
-    @media (max-width: 1024px) {
-      padding: 24px 20px;
-    }
-  }
-
-  .icon {
-    margin-bottom: 16px;
-    width: 22px;
-    height: 22px;
-  }
-
-  @media (max-width: 1024px) {
-    flex-direction: column;
-    text-align: center;
-  }
-}
-
-#docs {
-  border-right: 1px solid var(--border);
-
-  @media (max-width: 1024px) {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
-}
-
-#next-steps ul {
-  list-style: none;
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
   padding: 0;
-  display: flex;
-  gap: 8px;
-  margin: 32px 0 0;
-
-  .logo {
-    height: 18px;
-  }
-
-  a {
-    color: var(--text-h);
-    font-size: 16px;
-    border-radius: 6px;
-    background: var(--social-bg);
-    display: flex;
-    padding: 6px 12px;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    transition: box-shadow 0.3s;
-
-    &:hover {
-      box-shadow: var(--shadow);
-    }
-    .button-icon {
-      height: 18px;
-      width: 18px;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    margin-top: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    li {
-      flex: 1 1 calc(50% - 8px);
-    }
-
-    a {
-      width: 100%;
-      justify-content: center;
-      box-sizing: border-box;
-    }
-  }
 }
 
-#spacer {
-  height: 88px;
-  border-top: 1px solid var(--border);
-  @media (max-width: 1024px) {
-    height: 48px;
-  }
+body {
+  overflow: hidden;
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  color: var(--anzen-text);
+
+  background: #dce5ef;
 }
 
-.ticks {
+
+/* =========================================================
+   APP SHELL
+========================================================= */
+
+.anzen-app-shell {
   position: relative;
+
+  width: 100vw;
+  height: 100vh;
+
+  min-width: 900px;
+
+  overflow: hidden;
+
+  background: #dbe4ee;
+}
+
+
+/* =========================================================
+   MAP FRAME
+========================================================= */
+
+.anzen-map-frame {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 1;
+
+  overflow: hidden;
+}
+
+
+/*
+   MapView root must completely fill the frame.
+*/
+
+.anzen-map-frame > .map-view-root {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+}
+
+
+/*
+   Very subtle map edge treatment.
+   IMPORTANT:
+   This cannot block map interaction.
+*/
+
+.anzen-map-frame::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 400;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(7, 26, 51, 0.07),
+      transparent 18%,
+      transparent 82%,
+      rgba(7, 26, 51, 0.04)
+    );
+}
+
+
+/* =========================================================
+   MAP VIEW
+========================================================= */
+
+.map-view-root {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   LEAFLET MAP
+========================================================= */
+
+.anzen-leaflet-map,
+.leaflet-container {
+  position: absolute !important;
+
+  inset: 0;
+
+  width: 100% !important;
+  height: 100% !important;
+
+  min-height: 100%;
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    sans-serif;
+
+  background: #dbe5ec;
+}
+
+
+/* =========================================================
+   APPLICATION UI LAYER
+========================================================= */
+
+.anzen-ui-layer {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 1000;
+
+  /*
+   IMPORTANT:
+   The wrapper itself must NOT block the map.
+  */
+  pointer-events: none;
+}
+
+
+/*
+   Only actual UI elements receive pointer events.
+*/
+
+.anzen-ui-layer > * {
+  pointer-events: auto;
+}
+
+
+/* =========================================================
+   LEFT SIDEBAR
+========================================================= */
+
+.anzen-sidebar {
+  position: absolute;
+
+  left: 0;
+  top: 0;
+  bottom: 0;
+
+  width: 72px;
+
+  z-index: 1200;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  color: white;
+
+  background:
+    linear-gradient(
+      180deg,
+      #071a33 0%,
+      #081d39 100%
+    );
+
+  box-shadow:
+    5px 0 24px rgba(0, 0, 0, 0.16);
+}
+
+
+/* =========================================================
+   ANZEN BRAND
+========================================================= */
+
+.anzen-brand {
   width: 100%;
 
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: -4.5px;
-    border: 5px solid transparent;
+  padding:
+    17px 6px 15px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 7px;
+}
+
+.anzen-brand-mark {
+  width: 38px;
+  height: 38px;
+
+  border-radius: 11px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ef3340,
+      #c91e2b
+    );
+
+  box-shadow:
+    0 7px 18px
+    rgba(239, 51, 64, 0.30);
+}
+
+.anzen-brand-copy {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  line-height: 1;
+}
+
+.anzen-brand-copy strong {
+  color: white;
+
+  font-size: 11px;
+
+  letter-spacing: 0.8px;
+}
+
+.anzen-brand-copy span {
+  margin-top: 4px;
+
+  color:
+    rgba(255, 255, 255, 0.48);
+
+  font-size: 5px;
+
+  letter-spacing: 0.2px;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   SIDEBAR DIVIDER
+========================================================= */
+
+.anzen-sidebar-divider {
+  width: 38px;
+  height: 1px;
+
+  margin-bottom: 13px;
+
+  background:
+    rgba(255, 255, 255, 0.10);
+}
+
+
+/* =========================================================
+   SIDEBAR NAV
+========================================================= */
+
+.anzen-sidebar-nav {
+  width: 100%;
+
+  padding: 0 8px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 5px;
+
+  box-sizing: border-box;
+}
+
+.anzen-sidebar-item {
+  position: relative;
+
+  width: 56px;
+  min-height: 56px;
+
+  padding: 0;
+
+  border: 0;
+
+  border-radius: 10px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 5px;
+
+  color:
+    rgba(255, 255, 255, 0.52);
+
+  background: transparent;
+
+  cursor: pointer;
+
+  transition:
+    background 0.18s ease,
+    color 0.18s ease;
+}
+
+.anzen-sidebar-item span {
+  font-size: 8px;
+
+  font-weight: 600;
+}
+
+.anzen-sidebar-item:hover {
+  color: white;
+
+  background:
+    rgba(255, 255, 255, 0.07);
+}
+
+.anzen-sidebar-item.active {
+  color: white;
+
+  background: #1976e8;
+
+  box-shadow:
+    0 8px 18px
+    rgba(25, 118, 232, 0.24);
+}
+
+.anzen-sidebar-item.crime-active {
+  color: #ff6872;
+
+  background:
+    rgba(239, 51, 64, 0.18);
+}
+
+.anzen-sidebar-item b {
+  position: absolute;
+
+  top: 5px;
+  right: 7px;
+
+  min-width: 14px;
+  height: 14px;
+
+  padding: 0 3px;
+
+  border-radius: 7px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+
+  background: var(--anzen-red);
+
+  font-size: 8px;
+}
+
+
+/* =========================================================
+   SIDEBAR BOTTOM
+========================================================= */
+
+.anzen-sidebar-bottom {
+  width: 100%;
+
+  margin-top: auto;
+
+  padding:
+    0 8px 17px;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   TOP SEARCH
+========================================================= */
+
+.anzen-search-area {
+  position: absolute;
+
+  top: 20px;
+  left: 50%;
+
+  width: 500px;
+
+  transform:
+    translateX(-50%);
+
+  z-index: 1150;
+}
+
+
+/* =========================================================
+   ROUTE SEARCH CARD
+========================================================= */
+
+.route-search-card {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding: 10px;
+
+  border:
+    1px solid
+    rgba(15, 23, 42, 0.07);
+
+  border-radius: 16px;
+
+  background:
+    rgba(255, 255, 255, 0.98);
+
+  box-shadow:
+    0 15px 38px
+    rgba(15, 23, 42, 0.17);
+
+  backdrop-filter:
+    blur(12px);
+}
+
+.route-search-form {
+  width: 100%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+
+/* =========================================================
+   SEARCH FIELD
+========================================================= */
+
+.route-search-field {
+  min-height: 57px;
+
+  padding:
+    7px 9px;
+
+  box-sizing: border-box;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 11px;
+
+  border:
+    1px solid
+    #e4eaf2;
+
+  border-radius: 12px;
+
+  background: #f7f9fc;
+}
+
+.route-search-icon {
+  width: 34px;
+  height: 34px;
+
+  flex: 0 0 34px;
+
+  border-radius: 10px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.route-search-icon.source,
+.route-search-icon.from {
+  color: #05a875;
+
+  background: #e8faf4;
+}
+
+.route-search-icon.destination,
+.route-search-icon.to {
+  color: #ef3340;
+
+  background: #fff0f1;
+}
+
+.route-search-copy {
+  min-width: 0;
+
+  flex: 1;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.route-search-copy label,
+.route-search-field-content span {
+  color: #66758a;
+
+  font-size: 8px;
+
+  font-weight: 800;
+
+  letter-spacing: 1px;
+}
+
+.route-search-copy input,
+.route-search-field-content input {
+  width: 100%;
+
+  padding: 0;
+
+  border: 0;
+  outline: 0;
+
+  box-sizing: border-box;
+
+  color: #172033;
+
+  background: transparent;
+
+  font-size: 13px;
+
+  font-weight: 500;
+}
+
+.route-search-copy input::placeholder,
+.route-search-field-content input::placeholder {
+  color: #96a4b7;
+}
+
+
+/* =========================================================
+   CURRENT LOCATION SEARCH BUTTON
+========================================================= */
+
+.route-current-button {
+  width: 36px;
+  height: 36px;
+
+  flex: 0 0 36px;
+
+  border: 0;
+
+  border-radius: 10px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  color: #2563eb;
+
+  background: #eaf2ff;
+
+  cursor: pointer;
+}
+
+.route-current-button:hover {
+  background: #dbe9ff;
+}
+
+
+/* =========================================================
+   SEARCH CONNECTOR
+========================================================= */
+
+.route-search-connector {
+  width: 1px;
+  height: 7px;
+
+  margin-left: 24px;
+
+  background: #cbd5e1;
+}
+
+
+/* =========================================================
+   FIND ROUTE BUTTON
+========================================================= */
+
+.route-search-submit {
+  width: 100%;
+  min-height: 48px;
+
+  margin-top: 0;
+
+  border: 0;
+
+  border-radius: 11px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  color: white;
+
+  background:
+    linear-gradient(
+      135deg,
+      #111827,
+      #020617
+    );
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.15s ease,
+    background 0.15s ease;
+}
+
+.route-search-submit:hover {
+  background:
+    linear-gradient(
+      135deg,
+      #1e293b,
+      #020617
+    );
+
+  transform:
+    translateY(-1px);
+}
+
+.route-search-submit:disabled {
+  opacity: 0.6;
+
+  cursor: wait;
+}
+
+.route-loading-icon {
+  animation:
+    route-spin 0.9s linear infinite;
+}
+
+@keyframes route-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.route-search-error {
+  padding:
+    3px 7px 4px;
+
+  color: #dc2626;
+
+  font-size: 11px;
+
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   ACCOUNT CARD
+========================================================= */
+
+.anzen-account-card {
+  position: absolute;
+
+  top: 20px;
+  right: 20px;
+
+  width: 210px;
+  height: 52px;
+
+  padding:
+    6px 8px;
+
+  box-sizing: border-box;
+
+  z-index: 1150;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  border:
+    1px solid
+    rgba(15, 23, 42, 0.07);
+
+  border-radius: 13px;
+
+  background:
+    rgba(255, 255, 255, 0.97);
+
+  box-shadow:
+    0 12px 30px
+    rgba(15, 23, 42, 0.13);
+
+  backdrop-filter:
+    blur(12px);
+}
+
+.anzen-account-avatar {
+  width: 35px;
+  height: 35px;
+
+  flex: 0 0 35px;
+
+  border-radius: 50%;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+
+  background: #172033;
+
+  font-size: 12px;
+
+  font-weight: 800;
+}
+
+.anzen-account-copy {
+  min-width: 0;
+
+  flex: 1;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.anzen-account-copy span {
+  color: #7d899a;
+
+  font-size: 7px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.8px;
+}
+
+.anzen-account-copy strong {
+  overflow: hidden;
+
+  color: #172033;
+
+  font-size: 11px;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+.anzen-account-logout {
+  width: 29px;
+  height: 29px;
+
+  flex: 0 0 29px;
+
+  padding: 0;
+
+  border: 0;
+
+  border-radius: 8px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  color: #718096;
+
+  background: transparent;
+
+  cursor: pointer;
+}
+
+.anzen-account-logout:hover {
+  color: #172033;
+
+  background: #f1f5f9;
+}
+
+
+/* =========================================================
+   RIGHT SAFETY DATA PANEL
+========================================================= */
+
+.anzen-safety-panel {
+  position: absolute;
+
+  top: 83px;
+  right: 20px;
+
+  width: 280px;
+
+  z-index: 1140;
+
+  overflow: hidden;
+
+  border:
+    1px solid
+    rgba(15, 23, 42, 0.07);
+
+  border-radius: 13px;
+
+  background:
+    rgba(255, 255, 255, 0.97);
+
+  box-shadow:
+    0 14px 34px
+    rgba(15, 23, 42, 0.14);
+
+  backdrop-filter:
+    blur(12px);
+}
+
+
+/* =========================================================
+   SAFETY HEADER
+========================================================= */
+
+.anzen-safety-heading {
+  height: 56px;
+
+  padding:
+    0 13px;
+
+  box-sizing: border-box;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  border-bottom:
+    1px solid #edf0f4;
+}
+
+.anzen-safety-heading-icon {
+  width: 31px;
+  height: 31px;
+
+  flex: 0 0 31px;
+
+  border-radius: 9px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  color: #2475e8;
+
+  background: #eaf3ff;
+}
+
+.anzen-safety-heading > div:last-child {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.anzen-safety-heading strong {
+  color: #172033;
+
+  font-size: 11px;
+}
+
+.anzen-safety-heading span {
+  color: #8b97a8;
+
+  font-size: 8px;
+}
+
+
+/* =========================================================
+   SAFETY ROW
+========================================================= */
+
+.anzen-safety-row {
+  width: 100%;
+  min-height: 61px;
+
+  padding:
+    9px 12px;
+
+  box-sizing: border-box;
+
+  border: 0;
+
+  border-bottom:
+    1px solid #f0f2f5;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  text-align: left;
+
+  color: inherit;
+
+  background: white;
+
+  cursor: pointer;
+}
+
+.anzen-safety-row:hover {
+  background: #fafbfc;
+}
+
+.anzen-safety-icon {
+  width: 30px;
+  height: 30px;
+
+  flex: 0 0 30px;
+
+  border-radius: 9px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.anzen-safety-icon.orange {
+  color: #e69a00;
+
+  background: #fff7e6;
+}
+
+.anzen-safety-icon.red {
+  color: #ef3340;
+
+  background: #fff0f1;
+}
+
+.anzen-safety-copy {
+  min-width: 0;
+
+  flex: 1;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.anzen-safety-copy strong {
+  color: #172033;
+
+  font-size: 10px;
+}
+
+.anzen-safety-copy span {
+  color: #8a96a7;
+
+  font-size: 8px;
+}
+
+.anzen-safety-count {
+  min-width: 18px;
+
+  padding: 2px 5px;
+
+  border-radius: 999px;
+
+  color: #dc2626;
+
+  background: #fef2f2;
+
+  font-size: 8px;
+
+  font-weight: 800;
+
+  text-align: center;
+}
+
+.anzen-safety-chevron {
+  flex: 0 0 auto;
+
+  color: #94a3b8;
+}
+
+
+/* =========================================================
+   SAFETY TOGGLE
+========================================================= */
+
+.anzen-toggle {
+  width: 30px;
+  height: 18px;
+
+  flex: 0 0 30px;
+
+  padding: 2px;
+
+  box-sizing: border-box;
+
+  border-radius: 12px;
+
+  display: flex;
+
+  align-items: center;
+
+  background: #d8dee7;
+
+  transition:
+    background 0.2s ease;
+}
+
+.anzen-toggle span {
+  width: 14px;
+  height: 14px;
+
+  border-radius: 50%;
+
+  background: white;
+
+  box-shadow:
+    0 1px 3px
+    rgba(0, 0, 0, 0.2);
+
+  transition:
+    transform 0.2s ease;
+}
+
+.anzen-toggle.enabled {
+  background: #2583ee;
+}
+
+.anzen-toggle.enabled span {
+  transform:
+    translateX(12px);
+}
+
+
+/* =========================================================
+   NCRB YEAR SELECTOR
+========================================================= */
+
+.anzen-crime-year {
+  margin: 8px;
+
+  padding: 10px;
+
+  border:
+    1px solid #e8edf3;
+
+  border-radius: 10px;
+
+  background: #f7f9fc;
+}
+
+.anzen-crime-year-head {
+  margin-bottom: 9px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+}
+
+.anzen-crime-year-head > div {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 2px;
+}
+
+.anzen-crime-year-head span {
+  color: #456b94;
+
+  font-size: 7px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.8px;
+}
+
+.anzen-crime-year-head strong {
+  color: #172033;
+
+  font-size: 9px;
+}
+
+.anzen-crime-year-head > svg {
+  color: #2475e8;
+}
+
+.anzen-year-buttons {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 6px;
+}
+
+.anzen-year-buttons button {
+  height: 31px;
+
+  border:
+    1px solid #dce3eb;
+
+  border-radius: 7px;
+
+  color: #68768a;
+
+  background: white;
+
+  font-size: 9px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.anzen-year-buttons button:hover {
+  border-color: #9dbce6;
+}
+
+.anzen-year-buttons button.selected {
+  color: white;
+
+  border-color: #287ee8;
+
+  background: #287ee8;
+
+  box-shadow:
+    0 4px 10px
+    rgba(40, 126, 232, 0.22);
+}
+
+.anzen-crime-year small {
+  display: block;
+
+  margin-top: 7px;
+
+  color: #a0a9b7;
+
+  font-size: 7px;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   ROUTE PANEL
+========================================================= */
+
+.anzen-route-panel {
+  position: absolute;
+
+  left: 88px;
+  top: 82px;
+
+  width: 310px;
+
+  max-height:
+    calc(100vh - 145px);
+
+  z-index: 1100;
+
+  pointer-events: auto;
+}
+
+.anzen-route-panel.closed {
+  display: none;
+}
+
+
+/*
+   Neutralize legacy RoutePanel positioning.
+*/
+
+.anzen-route-panel > * {
+  position: relative !important;
+
+  inset: auto !important;
+
+  left: auto !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: auto !important;
+
+  width: 100% !important;
+
+  max-width: none !important;
+
+  max-height:
+    calc(100vh - 145px) !important;
+
+  margin: 0 !important;
+
+  transform: none !important;
+}
+
+
+/* =========================================================
+   SHOW ROUTES BUTTON
+========================================================= */
+
+.anzen-show-routes {
+  position: absolute;
+
+  left: 88px;
+  bottom: 28px;
+
+  height: 45px;
+
+  padding:
+    0 14px;
+
+  z-index: 1120;
+
+  border:
+    1px solid
+    rgba(15, 23, 42, 0.07);
+
+  border-radius: 11px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  color: #172033;
+
+  background:
+    rgba(255, 255, 255, 0.97);
+
+  box-shadow:
+    0 12px 28px
+    rgba(15, 23, 42, 0.15);
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  backdrop-filter:
+    blur(12px);
+}
+
+.anzen-show-routes:hover {
+  background: white;
+}
+
+.anzen-show-routes svg:first-child {
+  color: #287ee8;
+}
+
+
+/* =========================================================
+   CUSTOM MAP CONTROLS
+========================================================= */
+
+.map-controls {
+  position: absolute;
+
+  right: 22px;
+  bottom: 118px;
+
+  z-index: 1000;
+
+  width: 42px;
+
+  overflow: hidden;
+
+  display: flex;
+
+  flex-direction: column;
+
+  border:
+    1px solid
+    rgba(15, 23, 42, 0.12);
+
+  border-radius: 12px;
+
+  background:
+    rgba(255, 255, 255, 0.97);
+
+  box-shadow:
+    0 10px 25px
+    rgba(15, 23, 42, 0.16);
+
+  backdrop-filter:
+    blur(15px);
+
+  pointer-events: auto;
+}
+
+.map-control-button {
+  width: 42px;
+  height: 42px;
+
+  padding: 0;
+
+  border: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  color: #334155;
+
+  background: white;
+
+  cursor: pointer;
+
+  transition:
+    color 0.15s ease,
+    background 0.15s ease,
+    transform 0.12s ease;
+}
+
+.map-control-button:hover {
+  color: #2563eb;
+
+  background: #f8fafc;
+}
+
+.map-control-button:active {
+  transform: scale(0.94);
+}
+
+.map-control-button.recenter {
+  color: #2563eb;
+}
+
+.map-control-divider {
+  width: 26px;
+  height: 1px;
+
+  margin: 0 auto;
+
+  background: #e5e7eb;
+}
+
+
+/* =========================================================
+   SAFETY LEGEND
+========================================================= */
+
+.map-safety-legend {
+  position: absolute;
+
+  left: 350px;
+  bottom: 28px;
+
+  z-index: 900;
+
+  min-width: 145px;
+
+  padding:
+    11px 12px;
+
+  box-sizing: border-box;
+
+  border:
+    1px solid
+    rgba(226, 232, 240, 0.95);
+
+  border-radius: 12px;
+
+  background:
+    rgba(255, 255, 255, 0.95);
+
+  box-shadow:
+    var(--anzen-shadow);
+
+  backdrop-filter:
+    blur(15px);
+
+  pointer-events: none;
+}
+
+.map-legend-title {
+  margin-bottom: 7px;
+
+  color: #172033;
+
+  font-size: 9px;
+
+  font-weight: 800;
+}
+
+.map-legend-item {
+  display: flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  margin-top: 5px;
+
+  color: #64748b;
+
+  font-size: 8px;
+}
+
+.legend-line {
+  width: 20px;
+  height: 3px;
+
+  flex: 0 0 20px;
+
+  border-radius: 999px;
+}
+
+.legend-line.green {
+  background: #16a34a;
+}
+
+.legend-line.yellow {
+  background: #ca8a04;
+}
+
+.legend-line.orange {
+  background: #ea580c;
+}
+
+.legend-line.red {
+  background: #dc2626;
+}
+
+.legend-line.gray {
+  background: #64748b;
+}
+
+
+/* =========================================================
+   SOS
+========================================================= */
+
+.anzen-sos-wrapper {
+  position: absolute;
+
+  right: 25px;
+  bottom: 24px;
+
+  z-index: 1300;
+
+  pointer-events: auto;
+}
+
+.anzen-sos-wrapper > * {
+  position: relative !important;
+
+  inset: auto !important;
+
+  left: auto !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: auto !important;
+}
+
+
+/* =========================================================
+   REPORT STATUS
+========================================================= */
+
+.anzen-report-status {
+  position: absolute;
+
+  left: 88px;
+  bottom: 27px;
+
+  height: 34px;
+
+  padding:
+    0 11px;
+
+  z-index: 1110;
+
+  border-radius: 9px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  color: #69778b;
+
+  background:
+    rgba(255, 255, 255, 0.95);
+
+  box-shadow:
+    0 8px 20px
+    rgba(15, 23, 42, 0.12);
+
+  font-size: 9px;
+}
+
+.anzen-report-status svg {
+  color: #ef3340;
+}
+
+.anzen-report-status strong {
+  color: #172033;
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.anzen-loading {
+  position: absolute;
+
+  left: 50%;
+  bottom: 24px;
+
+  transform:
+    translateX(-50%);
+
+  height: 31px;
+
+  padding:
+    0 12px;
+
+  z-index: 1400;
+
+  border-radius: 8px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  color: white;
+
+  background:
+    rgba(7, 26, 51, 0.90);
+
+  font-size: 9px;
+
+  font-weight: 600;
+}
+
+.anzen-loading span {
+  width: 7px;
+  height: 7px;
+
+  flex: 0 0 7px;
+
+  border-radius: 50%;
+
+  background: #4ade80;
+
+  animation:
+    anzen-pulse 1s ease infinite;
+}
+
+@keyframes anzen-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
   }
 
-  &::before {
-    left: 0;
-    border-left-color: var(--border);
+  50% {
+    opacity: 1;
   }
-  &::after {
-    right: 0;
-    border-right-color: var(--border);
+}
+
+.anzen-crime-loading {
+  bottom: 62px;
+}
+
+
+/* =========================================================
+   LEAFLET
+========================================================= */
+
+.leaflet-container {
+  width: 100% !important;
+  height: 100% !important;
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    sans-serif;
+}
+
+.leaflet-control-container {
+  pointer-events: none;
+}
+
+.leaflet-control-container > * {
+  pointer-events: auto;
+}
+
+.leaflet-control-attribution {
+  z-index: 500 !important;
+
+  padding: 2px 5px !important;
+
+  color: #475569 !important;
+
+  background:
+    rgba(255, 255, 255, 0.72) !important;
+
+  font-size: 8px !important;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 12px;
+}
+
+.leaflet-popup-content {
+  margin: 10px 12px;
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    sans-serif;
+
+  font-size: 11px;
+}
+
+
+/*
+   Native Leaflet zoom control is disabled in
+   MapView.jsx, so these rules are only defensive.
+*/
+
+.leaflet-control-zoom {
+  display: none !important;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1150px) {
+
+  .anzen-search-area {
+    width: 440px;
+  }
+
+  .anzen-route-panel {
+    width: 285px;
+  }
+
+  .anzen-safety-panel {
+    width: 250px;
+  }
+
+  .anzen-account-card {
+    width: 190px;
+  }
+
+  .map-safety-legend {
+    left: 330px;
+  }
+}
+
+
+@media (max-width: 950px) {
+
+  .anzen-app-shell {
+    min-width: 0;
+  }
+
+  .anzen-sidebar {
+    width: 62px;
+  }
+
+  .anzen-brand-copy {
+    display: none;
+  }
+
+  .anzen-search-area {
+    left: 62px;
+
+    width:
+      calc(100% - 380px);
+
+    transform: none;
+  }
+
+  .anzen-route-panel {
+    left: 76px;
+  }
+
+  .anzen-show-routes {
+    left: 76px;
+  }
+
+  .map-safety-legend {
+    left: 320px;
+  }
+}
+
+
+@media (max-width: 800px) {
+
+  .anzen-sidebar {
+    width: 62px;
+  }
+
+  .anzen-brand-copy {
+    display: none;
+  }
+
+  .anzen-search-area {
+    top: 12px;
+
+    left: 50%;
+
+    width:
+      calc(100vw - 160px);
+
+    min-width: 280px;
+
+    transform:
+      translateX(-50%);
+  }
+
+  .anzen-account-card {
+    top: 12px;
+
+    right: 12px;
+
+    width: 45px;
+
+    height: 45px;
+
+    padding: 4px;
+
+    justify-content: center;
+  }
+
+  .anzen-account-copy,
+  .anzen-account-logout {
+    display: none;
+  }
+
+  .anzen-route-panel {
+    left: 74px;
+
+    top: 115px;
+
+    width:
+      calc(100vw - 90px);
+
+    max-width: 350px;
+
+    max-height:
+      calc(100vh - 135px);
+  }
+
+  .anzen-safety-panel {
+    top: 70px;
+
+    right: 12px;
+
+    width: 230px;
+  }
+
+  .map-controls {
+    right: 12px;
+
+    bottom: 95px;
+  }
+
+  .anzen-show-routes {
+    left: 74px;
+
+    bottom: 14px;
+  }
+
+  .map-safety-legend {
+    display: none;
+  }
+
+  .anzen-sos-wrapper {
+    right: 12px;
+
+    bottom: 14px;
   }
 }
